@@ -72,15 +72,14 @@
             letter-spacing: 2px;
             margin-bottom: 0.3rem;
             text-shadow: 0 0 20px rgba(255,255,255,0.5);
-            /* تدرج لوني متحرك */
             background: linear-gradient(
                 270deg,
-                #FFD700, /* ذهبي */
-                #00BFFF, /* أزرق سماوي */
-                #FF1493, /* وردي */
-                #32CD32, /* أخضر */
-                #FF8C00, /* برتقالي */
-                #9400D3  /* بنفسجي */
+                #FFD700,
+                #00BFFF,
+                #FF1493,
+                #32CD32,
+                #FF8C00,
+                #9400D3
             );
             background-size: 400% 400%;
             -webkit-background-clip: text;
@@ -297,21 +296,11 @@
         }
 
         @keyframes gradientShift {
-            0% {
-                background-position: 0% 50%;
-            }
-            25% {
-                background-position: 100% 0%;
-            }
-            50% {
-                background-position: 100% 100%;
-            }
-            75% {
-                background-position: 0% 100%;
-            }
-            100% {
-                background-position: 0% 50%;
-            }
+            0% { background-position: 0% 50%; }
+            25% { background-position: 100% 0%; }
+            50% { background-position: 100% 100%; }
+            75% { background-position: 0% 100%; }
+            100% { background-position: 0% 50%; }
         }
     </style>
 </head>
@@ -339,12 +328,13 @@
 
             <div class="balance-section">
                 <p>🔍 لمعرفة رصيدك المتبقي في الكرت:</p>
-                <button class="btn-balance" onclick="handleBalanceClick()" aria-label="الاستعلام عن الرصيد (تذكير بالاتصال بشبكة اليعقوب)">
+                <!-- الزر المعدل لفتح الرابط في المتصفح الخارجي -->
+                <a href="#" class="btn-balance" onclick="handleBalanceClick(event);" aria-label="الاستعلام عن الرصيد (تذكير بالاتصال بشبكة اليعقوب)">
                     <span>استعلام عن الرصيد</span>
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                         <path d="M5 12h14M12 5l7 7-7 7"/>
                     </svg>
-                </button>
+                </a>
             </div>
 
             <!-- قسم الدعم الفني والتواصل -->
@@ -396,7 +386,7 @@
         <div class="footer">
             جميع الحقوق محفوظة © اليعقوب نت <span id="currentYear"></span>
             <div class="developer-credit">
-                إعداد م/ شاكر السفياني
+                برمجة م/ شاكر السفياني
             </div>
         </div>
     </div>
@@ -404,14 +394,11 @@
     <script>
         document.getElementById('currentYear').textContent = new Date().getFullYear();
 
-        function handleBalanceClick() {
-            const confirmed = confirm(
-                "تنبيه مهم:\n" +
-                "للاستعلام عن رصيدك، يجب أن تكون متصلاً بشبكة الواي فاي الخاصة بـ اليعقوب نت.\n\n" +
-                "هل تريد المتابعة إلى صفحة الرصيد؟"
-            );
-            if (confirmed) {
-                window.location.href = "http://10.0.0.2/index.html";
+        function handleBalanceClick(event) {
+            event.preventDefault(); // منع السلوك الافتراضي للرابط
+            if (confirm("تنبيه مهم:\nللاستعلام عن رصيدك، يجب أن تكون متصلاً بشبكة الواي فاي الخاصة بـ اليعقوب نت.\n\nهل تريد المتابعة إلى صفحة الرصيد؟")) {
+                // يفتح الرابط في المتصفح الخارجي لتجنب خطأ ERR_CLEARTEXT_NOT_PERMITTED
+                window.open('http://10.0.0.2/index.html', '_system');
             }
         }
     </script>
